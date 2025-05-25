@@ -29,7 +29,8 @@ chmod +x ./sharun-aio
 xvfb-run -a -- ./sharun-aio l -p -v -e -s -k \
 	/usr/bin/gnome-contacts* \
 	/usr/lib/libgst* \
-	/usr/lib/gstreamer-*/*.so
+	/usr/lib/gstreamer-*/*.so \
+        /usr/lib/*folk*
 rm -f ./sharun-aio
 
 # Prepare sharun
