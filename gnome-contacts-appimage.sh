@@ -28,6 +28,8 @@ wget "$SHARUN" -O ./sharun-aio
 chmod +x ./sharun-aio
 xvfb-run -a -- ./sharun-aio l -p -v -e -s -k \
 	/usr/bin/gnome-contacts*
+	/usr/lib/libgst* \
+	/usr/lib/gstreamer-*/*.so
 rm -f ./sharun-aio
 
 # Prepare sharun
