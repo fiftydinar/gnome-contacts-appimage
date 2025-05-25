@@ -30,8 +30,11 @@ xvfb-run -a -- ./sharun-aio l -p -v -e -s -k \
 	/usr/bin/gnome-contacts* \
 	/usr/lib/libgst* \
 	/usr/lib/gstreamer-*/*.so \
-        /usr/lib/*folk*
+        /usr/lib/folks/*/backends/*/*
 rm -f ./sharun-aio
+
+# FIXME add this variable to sharun
+echo 'FOLKS_BACKEND_PATH=${SHARUN_DIR}/lib/folks/26/backends' >> ./.env
 
 # Prepare sharun
 ln ./sharun ./AppRun
