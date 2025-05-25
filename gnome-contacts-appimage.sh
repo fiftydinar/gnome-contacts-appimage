@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -eu
+set -eux
 
 PACKAGE=gnome-contacts
 DESKTOP=org.gnome.Contacts.desktop
@@ -30,8 +30,22 @@ xvfb-run -a -- ./sharun-aio l -p -v -e -s -k \
 	/usr/bin/gnome-contacts* \
 	/usr/lib/libgst* \
 	/usr/lib/gstreamer-*/*.so \
-        /usr/lib/*folk*
+	/usr/lib/folks/*/backends/*/*
 rm -f ./sharun-aio
+
+# DEPLOY GSTREAMER
+echo "Deploying Gstreamer binaries..."
+cp -vn /usr/lib/gstreamer-*/*  ./shared/lib/gstreamer-* || true
+
+echo "Sharunning Gstreamer bins..."
+bins_to_find="$(find ./shared/lib/ -exec file {} \; | grep -i 'elf.*executable' | awk -F':' '{print $1}')"
+for bin in $bins_to_find; do
+	mv -v "$bin" ./shared/bin && ln ./sharun "$bin"
+	echo "Sharan $bin"
+done
+
+# FIXME add this variable to sharun
+echo 'FOLKS_BACKEND_PATH=${SHARUN_DIR}/lib/folks/26/backends' >> ./.env
 
 # Prepare sharun
 ln ./sharun ./AppRun
