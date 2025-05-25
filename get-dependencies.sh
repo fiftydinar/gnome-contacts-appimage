@@ -27,6 +27,7 @@ echo "Installing app dependencies..."
 echo "---------------------------------------------------------------"
 pacman -Syu --noconfirm \
 	gnome-contacts \
+        dbus \
         mesa
 
 echo "Installing debloated pckages..."
