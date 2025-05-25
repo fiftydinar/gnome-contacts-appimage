@@ -3,7 +3,7 @@
 set -eu
 
 PACKAGE=gnome-contacts
-DESKTOP=org.gnome.Contacts
+DESKTOP=org.gnome.Contacts.desktop
 ICON=org.gnome.Contacts.svg
 
 export ARCH="$(uname -m)"
