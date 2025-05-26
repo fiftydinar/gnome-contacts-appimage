@@ -54,11 +54,12 @@ sed -i 's|/usr/share|././/share|g' ./shared/bin/gnome-contacts
 sed -i 's|/usr/lib|././/lib|g' ./shared/lib/libcamel*
 echo 'SHARUN_WORKING_DIR=${SHARUN_DIR}' >> ./.env 
 
-# Deploy Gstreamer binaries manually, as sharun can only handle libraries in /lib/ for now
-echo "Deploying Gstreamer binaries..."
+# Deploy Gstreamer & evolution-data-server binaries manually, as sharun can only handle libraries in /lib/ for now
+echo "Deploying Gstreamer & evolution-data-server binaries..."
+cp -r /usr/lib/evolution-data-server ./shared/lib/evolution-data-server
 cp -vn /usr/lib/gstreamer-*/*  ./shared/lib/gstreamer-* || true
 
-echo "Sharunning Gstreamer bins..."
+echo "Sharunning Gstreamer & evolution-data-server bins..."
 bins_to_find="$(find ./shared/lib/ -exec file {} \; | grep -i 'elf.*executable' | awk -F':' '{print $1}')"
 for bin in $bins_to_find; do
 	mv -v "$bin" ./shared/bin && ln ./sharun "$bin"
