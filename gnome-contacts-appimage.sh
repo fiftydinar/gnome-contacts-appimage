@@ -49,6 +49,8 @@ find ./share/locale -type f ! -name '*glib*' ! -name '*gnome-contacts*' -delete
 find ./share/locale -type f 
 # Fix hardcoded path for locale
 sed -i 's|/usr/share|././/share|g' ./shared/bin/*
+sed -i 's|/usr/lib|././/lib|g' ./shared/lib/*
+sed -i 's|/usr/share|././/share|g' ./shared/lib/*
 
 # Fix hardcoded path for 'libcamel' libraries from 'evolution-data-server'
 sed -i 's|/usr/lib|././/lib|g' ./shared/lib/libcamel*
