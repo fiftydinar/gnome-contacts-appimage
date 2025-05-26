@@ -35,7 +35,7 @@ StartupWMClass=$DESKTOP
 wget "$SHARUN" -O ./sharun-aio
 chmod +x ./sharun-aio
 xvfb-run -a -- ./sharun-aio l -p -v -e -s -k \
-	/usr/bin/$DESKTOP \
+	/usr/bin/"$DESKTOP" \
 	/usr/lib/libgst* \
 	/usr/lib/gstreamer-*/*.so \
 	/usr/lib/folks/*/backends/*/* \
@@ -48,7 +48,7 @@ cp -r /usr/share/locale          ./share
 find ./share/locale -type f ! -name '*glib*' ! -name '*$DESKTOP*' -delete
 find ./share/locale -type f 
 # Fix hardcoded path for locale
-sed -i 's|/usr/share|././/share|g' ./shared/bin/$DESKTOP
+sed -i 's|/usr/share|././/share|g' ./shared/bin/"$DESKTOP"
 
 # Fix hardcoded path for 'libcamel' libraries from 'evolution-data-server'
 sed -i 's|/usr/lib|././/lib|g' ./shared/lib/libcamel*
