@@ -19,9 +19,21 @@ URUNTIME="https://github.com/VHSgunzo/uruntime/releases/latest/download/uruntime
 mkdir -p ./AppDir/shared/lib
 cd ./AppDir
 
-cp -v /usr/share/applications/"$DESKTOP"            ./
+# Copy desktop file & icon
+cp -v /usr/share/applications/"$DESKTOP"             ./
 cp -v /usr/share/icons/hicolor/scalable/apps/"$ICON" ./
 cp -v /usr/share/icons/hicolor/scalable/apps/"$ICON" ./.DirIcon
+
+# Copy locale of Gnome Contacts manually, as sharun doesn't copy it at the moment
+echo "Copying locale of Gnome Contacts..."
+SOURCE_DIR="/usr/share/locale"
+TARGET_DIR="./share/locale"
+
+find "$SOURCE_DIR" -type f -name "gnome-contacts.mo" | while read -r file; do
+    target_subdir="$TARGET_DIR/$(dirname "${file#$SOURCE_DIR/}")"
+    mkdir -p "$target_subdir"
+    cp -v "$file" "$target_subdir"
+done
 
 # ADD LIBRARIES
 wget "$SHARUN" -O ./sharun-aio
@@ -33,7 +45,7 @@ xvfb-run -a -- ./sharun-aio l -p -v -e -s -k \
 	/usr/lib/folks/*/backends/*/*
 rm -f ./sharun-aio
 
-# DEPLOY GSTREAMER
+# Deploy Gstreamer binaries manually, as sharun can only handle libraries in /lib/ for now
 echo "Deploying Gstreamer binaries..."
 cp -vn /usr/lib/gstreamer-*/*  ./shared/lib/gstreamer-* || true
 
