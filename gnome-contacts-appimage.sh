@@ -38,7 +38,8 @@ xvfb-run -a -- ./sharun-aio l -p -v -e -s -k \
 	/usr/bin/gnome-contacts* \
 	/usr/lib/libgst* \
 	/usr/lib/gstreamer-*/*.so \
-	/usr/lib/folks/*/backends/*/*
+	/usr/lib/folks/*/backends/*/* \
+        /usr/lib/evolution-data-server/*/*
 rm -f ./sharun-aio
 
 # Copy locale manually, as sharun doesn't do that at the moment
@@ -46,6 +47,8 @@ cp -vr /usr/lib/locale           ./shared/lib
 cp -r /usr/share/locale          ./share
 find ./share/locale -type f ! -name '*glib*' ! -name '*gnome-contacts*' -delete
 find ./share/locale -type f 
+
+# Copy 
 
 # Deploy Gstreamer binaries manually, as sharun can only handle libraries in /lib/ for now
 echo "Deploying Gstreamer binaries..."
