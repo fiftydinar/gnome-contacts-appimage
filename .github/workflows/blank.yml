@@ -1,4 +1,4 @@
-name: Create and release AppBundle & Appimage
+name: Create & release Appimage
 concurrency:
   group: build-${{ github.ref }}
   cancel-in-progress: true
@@ -31,11 +31,11 @@ jobs:
       run: |
         chmod +x ./get-dependencies.sh && ./get-dependencies.sh
 
-    - name: Make AppImage/AppBundle
+    - name: Make AppImage
       run: |
         chmod +x ./*-appimage.sh && ./*-appimage.sh
         mkdir dist
-        mv *.AppImage* *.AppBundle* dist/
+        mv *.AppImage* dist/
 
     - name: Check version file
       run: |
@@ -95,7 +95,6 @@ jobs:
             make_latest: true
             files: |
               *.AppImage*
-              *.AppBundle*
           continue-on-error: false
 
         #Snapshot Release
@@ -115,5 +114,4 @@ jobs:
             make_latest: false
             files: |
               *.AppImage*
-              *.AppBundle*
           continue-on-error: false
