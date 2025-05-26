@@ -28,14 +28,14 @@ cp -v /usr/share/icons/hicolor/scalable/apps/"$ICON" ./.DirIcon
 # Doesn't work when ran in Wayland, as it's 'org.gnome.Contacts' instead.
 # It needs to be manually changed by the user in this case.
 sed -i "/^\[Desktop Entry\]/a\
-StartupWMClass=$DESKTOP
+StartupWMClass=$PACKAGE
 " "$DESKTOP"
 
 # ADD LIBRARIES
 wget "$SHARUN" -O ./sharun-aio
 chmod +x ./sharun-aio
 xvfb-run -a -- ./sharun-aio l -p -v -e -s -k \
-	/usr/bin/"$DESKTOP" \
+	/usr/bin/"$PACKAGE" \
 	/usr/lib/libgst* \
 	/usr/lib/gstreamer-*/*.so \
 	/usr/lib/folks/*/backends/*/* \
@@ -45,10 +45,10 @@ rm -f ./sharun-aio
 # Copy locale manually, as sharun doesn't do that at the moment
 cp -vr /usr/lib/locale           ./shared/lib
 cp -r /usr/share/locale          ./share
-find ./share/locale -type f ! -name '*glib*' ! -name '*$DESKTOP*' -delete
+find ./share/locale -type f ! -name '*glib*' ! -name '*$PACKAGE*' -delete
 find ./share/locale -type f 
 # Fix hardcoded path for locale
-sed -i 's|/usr/share|././/share|g' ./shared/bin/"$DESKTOP"
+sed -i 's|/usr/share|././/share|g' ./shared/bin/"$PACKAGE"
 
 # Fix hardcoded path for 'libcamel' libraries from 'evolution-data-server'
 sed -i 's|/usr/lib|././/lib|g' ./shared/lib/libcamel*
