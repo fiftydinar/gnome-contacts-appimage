@@ -47,8 +47,10 @@ cp -vr /usr/lib/locale           ./shared/lib
 cp -r /usr/share/locale          ./share
 find ./share/locale -type f ! -name '*glib*' ! -name '*gnome-contacts*' -delete
 find ./share/locale -type f 
+# Fix hardcoded path for locale
+sed -i 's|/usr/share|././/share|g' ./shared/bin/gnome-contacts
 
-# Patch 'libcamel' libraries from 'evolution-data-server' to point to the right path
+# Fix hardcoded path for 'libcamel' libraries from 'evolution-data-server'
 sed -i 's|/usr/lib|././/lib|g' ./shared/lib/libcamel*
 echo 'SHARUN_WORKING_DIR=${SHARUN_DIR}' >> ./.env 
 
