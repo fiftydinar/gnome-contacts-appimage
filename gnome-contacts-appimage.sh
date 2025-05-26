@@ -48,7 +48,9 @@ cp -r /usr/share/locale          ./share
 find ./share/locale -type f ! -name '*glib*' ! -name '*gnome-contacts*' -delete
 find ./share/locale -type f 
 
-# Copy 
+# Patch 'libcamel' libraries from 'evolution-data-server' to point to the right path
+sed -i 's|/usr/lib|././/lib|g' ./shared/lib/libcamel*
+echo 'SHARUN_WORKING_DIR=${SHARUN_DIR}' >> ./.env 
 
 # Deploy Gstreamer binaries manually, as sharun can only handle libraries in /lib/ for now
 echo "Deploying Gstreamer binaries..."
