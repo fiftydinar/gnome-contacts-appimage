@@ -24,6 +24,13 @@ cp -v /usr/share/applications/"$DESKTOP"             ./
 cp -v /usr/share/icons/hicolor/scalable/apps/"$ICON" ./
 cp -v /usr/share/icons/hicolor/scalable/apps/"$ICON" ./.DirIcon
 
+# Patch StartupWMClass to work on X11
+# Doesn't work when ran in Wayland, as it's 'org.gnome.Contacts' instead.
+# It needs to be manually changed by the user in this case.
+sed -i '/^\[Desktop Entry\]/a\
+StartupWMClass=gnome-contacts
+' "$DESKTOP"
+
 # ADD LIBRARIES
 wget "$SHARUN" -O ./sharun-aio
 chmod +x ./sharun-aio
