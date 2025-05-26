@@ -10,8 +10,25 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    name: "${{ matrix.name }} (${{ matrix.arch }})"
+    runs-on: ${{ matrix.runs-on }}
+    strategy:
+      matrix:
+        include:
+          - runs-on: ubuntu-latest
+            name: "Build AppImage"
+            arch: x86_64
+          - runs-on: ubuntu-24.04-arm
+            name: "Build AppImage"
+            arch: aarch64
+          - runs-on: ubuntu-latest
+            name: "Build AppBundle"
+            arch: x86_64
+          - runs-on: ubuntu-24.04-arm
+            name: "Build AppBundle"
+            arch: aarch64
     container: ghcr.io/pkgforge-dev/archlinux:latest
+    
     steps:
     - uses: actions/checkout@v4
 
@@ -34,7 +51,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v4.6.1
       with:
-        name: AppImage
+        name: AppImage-${{ matrix.arch }}
         path: 'dist'
         
     - name: Upload version file
@@ -51,7 +68,16 @@ jobs:
       steps:
         - uses: actions/download-artifact@v4.1.8
           with:
-            name: AppImage
+            name: AppImage-x86_64
+        - uses: actions/download-artifact@v4.3.0
+          with:
+            name: AppImage-aarch64
+        - uses: actions/download-artifact@v4.3.0
+          with:
+            name: AppBundle-x86_64
+        - uses: actions/download-artifact@v4.3.0
+          with:
+            name: AppBundle-aarch64
         - uses: actions/download-artifact@v4.1.8
           with:
             name: version
