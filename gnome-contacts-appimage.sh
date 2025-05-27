@@ -38,7 +38,6 @@ xvfb-run -a -- ./sharun-aio l -p -v -e -s -k \
 	/usr/bin/gnome-contacts \
 	/usr/lib/libgst* \
 	/usr/lib/gstreamer-*/*.so \
-	/usr/lib/folks/*/backends/*/* \
         /usr/lib/evolution-data-server/*/*
 rm -f ./sharun-aio
 
@@ -65,9 +64,6 @@ for bin in $bins_to_find; do
 	mv -v "$bin" ./shared/bin && ln ./sharun "$bin"
 	echo "Sharan $bin"
 done
-
-# FIXME add this variable to sharun
-echo 'FOLKS_BACKEND_PATH=${SHARUN_DIR}/lib/folks/26/backends' >> ./.env
 
 # Prepare sharun
 ln ./sharun ./AppRun
