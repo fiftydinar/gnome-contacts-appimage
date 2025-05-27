@@ -59,7 +59,7 @@ echo 'SHARUN_WORKING_DIR=${SHARUN_DIR}' >> ./.env
 cp /usr/lib/gnome-contacts-search-provider ./lib/gnome-contacts-search-provider
 cp -r /usr/lib/gnome-contacts ./lib/gnome-contacts
 
-# Deploy Gstreamer & evolution-data-server binaries manually, as sharun can only handle libraries in /lib/ for now
+# Deploy Gstreamer, evolution-data-server & gnome-contact binaries from /lib/ manually, as sharun can only handle libraries in /lib/ for now
 echo "Deploying Gstreamer & evolution-data-server binaries..."
 cp -r /usr/lib/evolution-data-server ./shared/lib/evolution-data-server
 cp -vn /usr/lib/gstreamer-*/*  ./shared/lib/gstreamer-* || true
