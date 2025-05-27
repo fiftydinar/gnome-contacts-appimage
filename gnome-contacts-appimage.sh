@@ -38,6 +38,7 @@ xvfb-run -a -- ./sharun-aio l -p -v -e -s -k \
 	/usr/bin/gnome-contacts \
 	/usr/lib/libgst* \
 	/usr/lib/gstreamer-*/*.so \
+	/usr/lib/folks/*/backends/*/* \
         /usr/lib/evolution-data-server/*/*
 rm -f ./sharun-aio
 
