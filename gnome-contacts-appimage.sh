@@ -56,10 +56,9 @@ sed -i 's|/usr/lib|././/lib|g' ./shared/bin/gnome-contacts
 sed -i 's|/usr/lib|././/lib|g' ./shared/lib/libcamel*
 echo 'SHARUN_WORKING_DIR=${SHARUN_DIR}' >> ./.env 
 
-# Add gnome-contacts-parser lib, as it didn't get added by sharun
+# Add gnome-contacts lib directory, as it didn't get added by sharun
 cp /usr/lib/gnome-contacts-search-provider ./lib/gnome-contacts-search-provider
-cp /usr/lib/gnome-contacts/gnome-contacts-parser ./bin/gnome-contacts-parser
-ln ./sharun ./bin/gnome-contacts-parser
+cp -r /usr/lib/gnome-contacts ./lib/gnome-contacts
 
 # Deploy Gstreamer, evolution-data-server & gnome-contact binaries from /lib/ manually, as sharun can only handle libraries in /lib/ for now
 echo "Deploying Gstreamer & evolution-data-server binaries..."
