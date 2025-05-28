@@ -36,8 +36,6 @@ wget "$SHARUN" -O ./sharun-aio
 chmod +x ./sharun-aio
 xvfb-run -a -- ./sharun-aio l -p -v -e -s -k \
 	/usr/bin/gnome-contacts \
-        /usr/lib/gnome-contacts/* \
-        /usr/lib/gnome-contacts* \
 	/usr/lib/libgst* \
 	/usr/lib/gstreamer-*/*.so \
 	/usr/lib/folks/*/backends/*/* \
@@ -57,6 +55,10 @@ sed -i 's|/usr/lib|././/lib|g' ./shared/bin/gnome-contacts
 # Fix hardcoded path for 'libcamel' libraries from 'evolution-data-server'
 sed -i 's|/usr/lib|././/lib|g' ./shared/lib/libcamel*
 echo 'SHARUN_WORKING_DIR=${SHARUN_DIR}' >> ./.env 
+
+# Add gnome-contacts lib directory, as it didn't get added by sharun
+cp /usr/lib/gnome-contacts-search-provider ./lib/gnome-contacts-search-provider
+cp -r /usr/lib/gnome-contacts ./lib/gnome-contacts
 
 # Deploy Gstreamer, evolution-data-server & gnome-contact binaries from /lib/ manually, as sharun can only handle libraries in /lib/ for now
 echo "Deploying Gstreamer & evolution-data-server binaries..."
