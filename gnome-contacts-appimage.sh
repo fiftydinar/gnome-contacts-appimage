@@ -49,6 +49,8 @@ find ./share/locale -type f ! -name '*glib*' ! -name '*gnome-contacts*' -delete
 find ./share/locale -type f 
 # Fix hardcoded path for locale
 sed -i 's|/usr/share|././/share|g' ./shared/bin/gnome-contacts
+# Fix hardcoded path for gnome-contacts-parser
+sed -i 's|/usr/lib|././/lib|g' ./shared/bin/gnome-contacts
 
 # Fix hardcoded path for 'libcamel' libraries from 'evolution-data-server'
 sed -i 's|/usr/lib|././/lib|g' ./shared/lib/libcamel*
@@ -57,21 +59,10 @@ echo 'SHARUN_WORKING_DIR=${SHARUN_DIR}' >> ./.env
 # Add gnome-contacts lib directory, as it didn't get added by sharun
 cp /usr/lib/gnome-contacts-search-provider ./lib/gnome-contacts-search-provider
 cp -r /usr/lib/gnome-contacts ./lib/gnome-contacts
-cp /usr/lib/camel-gpg-photo-saver ./lib/camel-gpg-photo-saver
-cp /usr/lib/camel-index-control-1.2 ./lib/camel-index-control-1.2
-cp /usr/lib/camel-lock-helper-1.2 ./lib/camel-lock-helper-1.2
-cp /usr/lib/evolution-scan-gconf-tree-xml ./lib/evolution-scan-gconf-tree-xml
-cp /usr/lib/evolution-source-registry ./lib/evolution-source-registry
-cp /usr/lib/evolution-user-prompter ./lib/evolution-user-prompter
-cp /usr/lib/evolution-addressbook-factory ./lib/evolution-addressbook-factory
-cp /usr/lib/evolution-addressbook-factory-subprocess ./lib/evolution-addressbook-factory-subprocess
-cp /usr/lib/evolution-calendar-factory ./lib/evolution-calendar-factory
-cp /usr/lib/evolution-calendar-factory-subprocess ./lib/evolution-calendar-factory-subprocess
 
 # Deploy Gstreamer, evolution-data-server & gnome-contact binaries from /lib/ manually, as sharun can only handle libraries in /lib/ for now
 echo "Deploying Gstreamer & evolution-data-server binaries..."
 cp -r /usr/lib/evolution-data-server ./shared/lib/evolution-data-server
-
 cp -vn /usr/lib/gstreamer-*/*  ./shared/lib/gstreamer-* || true
 
 echo "Sharunning Gstreamer & evolution-data-server bins..."
