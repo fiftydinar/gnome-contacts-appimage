@@ -1,10 +1,10 @@
+> [!IMPORTANT]  
+> This AppImage depends on the host `evolution-data-server` to work properly, so it's more complicated for external packaging, so I won't bother anymore with it's packaging.
+> If that whole package is required to be on the host, than I would resort to using a native package instead.
+> Same also applies for Gnome Calendar AppImage.
+
+# gnome-calendar-appimage
+Test of Gnome Calendar AppImage, not intended for daily-driving yet.
+
 # gnome-contacts-appimage
 Test of Gnome Contacts AppImage, not intended for daily-driving yet.
-
-## Known issues / TO-DO
-
-- Build `gnome-contacts` from source instead of relying on Arch repos
-- Integrate self-updater
-- It depends on the host for reading the contacts database (`${XDG_DATA_HOME}/evolution/`), so if you want to isolate the dotfiles without using `bubblewrap`, then only use portable `.config` folder.
-- Importing contacts doesn't work
-- Need to refactor it to use newer template & to not bundle `mesa`
